@@ -1,0 +1,36 @@
+def square(x: Double) = x * x
+
+//def sqrt(x: Double) = (y: Double) => y >= 0 && square(y) == x
+
+def abs(x: Double) = if (x >= 0 ) x else -x
+
+def avg(x: Double, y: Double) = (x + y) / 2
+
+def sqrt(x: Double) = {
+    def sqrtIteration(y: Double, x: Double): Double = 
+        if (isEstimateGood(y, x))
+            y
+        else
+            sqrtIteration(improve(y, x), x)
+
+    def isEstimateGood(y: Double, x: Double) =
+        abs(square(y) - x) < 0.001
+
+    def improve(y: Double, x: Double) = 
+        avg(y, x/y)
+
+    sqrtIteration(1, x)
+}
+
+{
+    val y = 8
+    def square(x: Double) = {
+        y
+    }
+
+    val x = square(2);
+    {
+        y
+    }
+    
+}
