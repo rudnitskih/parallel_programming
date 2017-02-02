@@ -7,30 +7,17 @@ def abs(x: Double) = if (x >= 0 ) x else -x
 def avg(x: Double, y: Double) = (x + y) / 2
 
 def sqrt(x: Double) = {
-    def sqrtIteration(y: Double, x: Double): Double = 
-        if (isEstimateGood(y, x))
+    def sqrtIteration(y: Double): Double = 
+        if (isEstimateGood(y))
             y
         else
-            sqrtIteration(improve(y, x), x)
+            sqrtIteration(improve(y))
 
-    def isEstimateGood(y: Double, x: Double) =
+    def isEstimateGood(y: Double) =
         abs(square(y) - x) < 0.001
 
-    def improve(y: Double, x: Double) = 
+    def improve(y: Double) = 
         avg(y, x/y)
 
-    sqrtIteration(1, x)
-}
-
-{
-    val y = 8
-    def square(x: Double) = {
-        y
-    }
-
-    val x = square(2);
-    {
-        y
-    }
-    
+    sqrtIteration(1)
 }
