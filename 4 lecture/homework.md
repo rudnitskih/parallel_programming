@@ -1,5 +1,3 @@
----
-
 Closures, homework (slides 19)
 
 Apply the substitution model to compute expression
