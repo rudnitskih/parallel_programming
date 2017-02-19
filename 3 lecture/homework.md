@@ -4,13 +4,11 @@ Try answering the following questions.
 
 <dl>
   <dt>Is it valid to speak of functions with domain A = ∅?</dt>
-  <dd><b>Maybe yes, e.g. function which no accept arguments and always return constant?</b></dd>
-  <br>
+  <dd>Maybe yes, e.g. function which no accept arguments and always return constant?</dd>
   <dt>What could be the purpose of functions with domain A, where |A| = 1?</dt>
-  <dd><b>Convert one value to another?</b></dd>
-  <br>
+  <dd>Convert one value to another?</dd>
   <dt>What is the significance of functions with codomain B, where |B| = 2?</dt>
-  <dd><b>Boolean function which returns TRUE or FALSE</b></dd>
+  <dd>Boolean function which returns TRUE or FALSE</dd>
 </dl>
 
 ---
@@ -26,9 +24,10 @@ Prove that association holds for function composition:
 (f ∘ g ) ∘ h = f ∘ (g ∘ h)
 
 **My evidence:**
-((f ∘ g ) ∘ h)(x) = (f ∘ g)(h(x)) = f(g(h(x)))
 
-(f ∘ (g ∘ h))(x) = f((g ∘ h)(x)) = f(g(h(x)))
+```((f ∘ g ) ∘ h)(x) = (f ∘ g)(h(x)) = f(g(h(x)))```
+
+```(f ∘ (g ∘ h))(x) = f((g ∘ h)(x)) = f(g(h(x)))```
 
 ---
 
@@ -40,7 +39,7 @@ def plus (x: Int, y: Int): Int = {
 }
 ```
 
-<span style="color: #6a6">Please explain how to solve this task</span>
+**Please explain how to solve this task**
 
 ---
 
