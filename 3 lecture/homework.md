@@ -1,5 +1,7 @@
 ---
 
+# DISCUSS
+
 Try answering the following questions.
 
 <dl>
@@ -12,6 +14,7 @@ Try answering the following questions.
 </dl>
 
 ---
+# DISCUSS
 
 Find the number of functions from A to B.
 <pre>         | A → B | ? </pre>
@@ -30,6 +33,8 @@ Prove that association holds for function composition:
 ```(f ∘ (g ∘ h))(x) = f((g ∘ h)(x)) = f(g(h(x)))```
 
 ---
+
+# DISCUSS
 
 Implement function plus(x,y) ≡ x + y without the use of operation +.
 
