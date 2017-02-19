@@ -1,7 +1,6 @@
 Closures, homework (slides 19)
 
-Apply the substitution model to compute expression
-isSqrtOf4(2).
+Apply the substitution model to compute expression isSqrtOf4(2).
 
 ```scala
 def square(x: Double): Double = x * x
@@ -22,10 +21,15 @@ isSqrtOf(4):
 isSqrtOf4(2)
 
 -> ({ (y: Double) => y >= 0 && square(y) == 4 })(2)
+
 -> 2 >= 0 && square(y) == 4
+
 -> square(2) == 4
+
 -> 2 * 2 == 4
+
 -> 4 == 4
+
 -> true
 
 ---
@@ -93,7 +97,7 @@ def double(x: Double) = x * x
 compose(id, double)(5) // type mismatch;  found   : Int => Int  required: Double => Int
 
 ```
-**`id` function should has the same otput type as 'double' input type**
+**`id` function should has the same otput type as `double` input type**
 
 ---
 
@@ -105,8 +109,8 @@ Implement multiplication of functions in accordance with the following definitio
 
 ```scala
 def product[A](f1: A => Double,
-                 f2: A => Double): A => Double =
+               f2: A => Double): A => Double =
     (x: A) => f1(x) + f2(x)
     
-   product(id, square)(2) 
+   product(id, square)(2) //> 6
 ```
