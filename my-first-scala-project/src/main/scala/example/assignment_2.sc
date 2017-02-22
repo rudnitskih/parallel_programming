@@ -4,6 +4,7 @@ object assignment_2 {
   type Set = Int => Boolean
 
   def contains(s: Set, elem: Int): Boolean = s(elem)
+  
   def singletonSet(elem: Int): Set = (x: Int) => x == elem
 
   singletonSet(4)(5) == false
@@ -59,5 +60,4 @@ object assignment_2 {
 
   from10to20(6) == true
   from10to20(12) == false
-
 }
