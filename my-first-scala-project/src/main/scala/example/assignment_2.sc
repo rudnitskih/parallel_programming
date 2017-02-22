@@ -5,7 +5,6 @@ object assignment_2 {
 
   def contains(s: Set, elem: Int): Boolean = s(elem)
                                                   //> contains: (s: example.assignment_2.Set, elem: Int)Boolean
- // DISCUSS useless function for my solutions
   def singletonSet(elem: Int): Set = (x: Int) => x == elem
                                                   //> singletonSet: (elem: Int)example.assignment_2.Set
 
@@ -60,7 +59,7 @@ object assignment_2 {
 
   // DISCUSS do not know how reuse `forall` function
   def exists(s: Set, p: Int => Boolean): Boolean = {
-    val min = -1000;
+    /*val min = -1000;
     val max = 1000;
 
     def iter(a: Int): Boolean = {
@@ -69,11 +68,15 @@ object assignment_2 {
       else iter(a + 1)
     }
 
-    iter(min)
+    iter(min)*/
+    forall(s, diff(s, p))
   }                                               //> exists: (s: example.assignment_2.Set, p: Int => Boolean)Boolean
 
-  exists((x) => x < 40, (x) => x == 39) == true   //> res10: Boolean = true
-  exists((x) => x < 40, (x) => x > 40) == false   //> res11: Boolean = true
+	exists((x) => x < 40, (x) => x > 35) == true
+                                                  //> res10: Boolean = false
+  exists((x) => x < 40, (x) => x == 39) == true   //> res11: Boolean = false
+  exists((x) => x < 40, (x) => x > 40) == false   //> res12: Boolean = false
+  exists((x) => x < 40, (x) => x == 50) == false  //> res13: Boolean = false
 
   def map(s: Set, f: Int => Int): Set = (x: Int) => s(f(x))
                                                   //> map: (s: example.assignment_2.Set, f: Int => Int)example.assignment_2.Set
@@ -81,7 +84,7 @@ object assignment_2 {
   val from10to20 = map((x) => x > 10 && x < 20, (x: Int) => x * 2)
                                                   //> from10to20  : example.assignment_2.Set = <function1>
 
-  from10to20(6) == true                           //> res12: Boolean = true
-  from10to20(12) == false                         //> res13: Boolean = true
+  from10to20(6) == true                           //> res14: Boolean = true
+  from10to20(12) == false                         //> res15: Boolean = true
 
 }
