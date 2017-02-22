@@ -34,12 +34,6 @@ isSqrtOf4(2)
 
 ---
 
-# DISCUSS
-
-**What are benefits of currying?** 
-
----
-
 Express function factorial(n) in terms of prod
 
 ```scala
@@ -68,7 +62,6 @@ Modify function mapReduce to be tail-recursive.
     tailMapReduceIt(unit, a)
   } 
 ```
-# DISCUSS
 
 Implement function derivativeOf(f) that would compute a derivative function of f.
 
@@ -80,8 +73,6 @@ def derivativeOf(f: Double=>Double): Double => Double = {
   
   derivativeOf(x => 2 * x * x)(1) 
 ```
-
-**Please help with this task. Do not understand relation with this topic**
 
 ---
 

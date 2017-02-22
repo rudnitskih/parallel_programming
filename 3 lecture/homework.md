@@ -1,12 +1,12 @@
 ---
 
-# DISCUSS
+# TODO
 
 Try answering the following questions.
 
 <dl>
   <dt>Is it valid to speak of functions with domain A = ∅?</dt>
-  <dd>Maybe yes, e.g. function which no accept arguments and always return constant?</dd>
+  <dd>???</dd>
   <dt>What could be the purpose of functions with domain A, where |A| = 1?</dt>
   <dd>Convert one value to another?</dd>
   <dt>What is the significance of functions with codomain B, where |B| = 2?</dt>
@@ -14,12 +14,10 @@ Try answering the following questions.
 </dl>
 
 ---
-# DISCUSS
+# TODO
 
 Find the number of functions from A to B.
 <pre>         | A → B | ? </pre>
-
-**Could you please explain it**
 
 ---
 
@@ -34,7 +32,7 @@ Prove that association holds for function composition:
 
 ---
 
-# DISCUSS
+# TODO check workshop
 
 Implement function plus(x,y) ≡ x + y without the use of operation +.
 
@@ -43,8 +41,6 @@ def plus (x: Int, y: Int): Int = {
     
 }
 ```
-
-**Please explain how to solve this task**
 
 ---
 
