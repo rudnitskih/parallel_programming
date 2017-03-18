@@ -32,7 +32,6 @@ Prove that association holds for function composition:
 
 ---
 
-# TODO check workshop
 
 Implement function plus(x,y) ≡ x + y without the use of operation +.
 
@@ -41,6 +40,8 @@ def plus (x: Int, y: Int): Int = {
     
 }
 ```
+
+Can find solution in Workshop 2 video
 
 ---
 
