@@ -107,6 +107,8 @@ Recursive definition of sets, homework (slide 44)
 
 ---
 
+# DISSCUS (review with Yurii)
+
 Sets as binary full search trees, homework (slide 125)
 
 Implement set-theoretic operation union.
@@ -125,4 +127,16 @@ case object Empty extends IntSet {
 case class NonEmpty() extends IntSet {
   def union(other: IntSet): IntSet = ???
 }
+```
+
+**Answer:**
+
+```
+def union(set: IntSet): IntSet =
+  set match {
+    case Empty =>
+      this
+    case NonEmpty(el, left, right) =>
+      this.include(el).union(left).union(right)
+  }
 ```
