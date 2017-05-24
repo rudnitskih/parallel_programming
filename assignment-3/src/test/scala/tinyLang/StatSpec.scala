@@ -5,13 +5,13 @@ import org.scalatest.FlatSpec
 class StatSpec extends FlatSpec {
   it should "print sequense of doNothing; assign; doNothing" in {
     println(
-      SeqStat(
-        IfElseStat(
+      Seq(
+        If(
           Bool(true),
           Assign("x", Number(0)),
           DoNothing()),
         Assign("x", Number(1)),
-        IfElseStat(
+        If(
           Bool(true),
           Assign("x", Number(2)),
           DoNothing()),

@@ -6,12 +6,12 @@ sealed trait Stat {
 
     case Assign(name, expression) => s"""${name} = ${expression}\n"""
 
-    case IfElseStat(condition, ifStat, elseStat) => s"""
+    case If(condition, ifStat, elseStat) => s"""
 if (${condition}) {
     ${ifStat}} else {
     ${elseStat}}\n
 """
-    case SeqStat(stats @ _*) => {
+    case Seq(stats @ _*) => {
       stats.mkString("", " ", " ")
     }
 
@@ -24,6 +24,6 @@ while(${expr}) {
 
 case class DoNothing() extends Stat
 case class Assign(name: String, expression: Expr) extends Stat
-case class IfElseStat(condition: Expr, ifStat: Stat, elseStat: Stat) extends Stat
-case class SeqStat(stats: Stat*) extends Stat
+case class If(condition: Expr, ifStat: Stat, elseStat: Stat) extends Stat
+case class Seq(stats: Stat*) extends Stat
 case class While(expr: Expr, stat: Stat) extends Stat

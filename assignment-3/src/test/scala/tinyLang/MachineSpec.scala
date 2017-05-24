@@ -87,14 +87,14 @@ class MachineSpec extends FunSpec {
     describe("Primitive values") {
       it("should not reduce Bool expression") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Bool(true),
             Map()) == Bool(true))
       }
 
       it("should not reduce Number expression") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Number(42),
             Map()) == Number(42))
       }
@@ -103,7 +103,7 @@ class MachineSpec extends FunSpec {
     describe("Sum") {
       it("should reduce 3 + 5 expression") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Sum(
               Number(3),
               Number(5)),
@@ -112,7 +112,7 @@ class MachineSpec extends FunSpec {
 
       it("should reduce 3 + 5 - 3 expression") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Sum(
               Number(3),
               Sum(
@@ -125,7 +125,7 @@ class MachineSpec extends FunSpec {
     describe("Prod") {
       it("should reduce 3 * 5 expression") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Prod(
               Number(3),
               Number(5)),
@@ -133,11 +133,11 @@ class MachineSpec extends FunSpec {
       }
     }
 
-    describe("LessThan") {
+    describe("Less") {
       it("should reduce 3 < 5 expression to Bool true") {
         assert(
-          new Machine().run(
-            LessThan(
+          new Machine().reduce(
+            Less(
               Number(3),
               Number(5)),
             Map()) === Bool(true))
@@ -145,8 +145,8 @@ class MachineSpec extends FunSpec {
 
       it("should reduce 5 < 5 expression to Bool false") {
         assert(
-          new Machine().run(
-            LessThan(
+          new Machine().reduce(
+            Less(
               Number(5),
               Number(5)),
             Map()) === Bool(false))
@@ -156,7 +156,7 @@ class MachineSpec extends FunSpec {
     describe("If-Else") {
       it("should reduce If-Else expression to Number 42") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             IfElse(
               Bool(true),
               Number(42),
@@ -166,7 +166,7 @@ class MachineSpec extends FunSpec {
 
       it("should reduce If-Else expression to Number 43") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             IfElse(
               Bool(false),
               Number(42),
@@ -176,11 +176,11 @@ class MachineSpec extends FunSpec {
             Map()) === Number(43))
       }
 
-      it("should reduce If-Else expression to Number 42 if condition LessThan expression") {
+      it("should reduce If-Else expression to Number 42 if condition Less expression") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             IfElse(
-              LessThan(
+              Less(
                 Number(3),
                 Number(5)),
               Number(42),
@@ -192,20 +192,20 @@ class MachineSpec extends FunSpec {
     describe("Combination of expressions") {
       it("should reduce (1 + 2) < (3 * 4) to `true`") {
         assert(
-          new Machine().run(
-            LessThan(
+          new Machine().reduce(
+            Less(
               Sum(
                 Number(1),
                 Number(2)),
               Prod(
                 Number(3),
                 Number(4))),
-            Map()) === Bool(true))
+            Map()) == Bool(true))
       }
 
       it("should reduce `(1 + 2) * (4 + 3)` to `21`") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Prod(
               Sum(
                 Number(1),
@@ -220,7 +220,7 @@ class MachineSpec extends FunSpec {
 
       it("should calculate ((1 + 1) * 1 + 1) * 1") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Prod(
               Sum(
                 Prod(
@@ -230,12 +230,12 @@ class MachineSpec extends FunSpec {
                   Number(1)),
                 Number(1)),
               Number(1)),
-            Map()) === Number(3))
+            Map()) == Number(3))
       }
 
       it("should calculate (x + 2) * (4 + y) where x = 1 and y = 3") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Prod(
               Sum(
                 Var("x"),
@@ -244,26 +244,26 @@ class MachineSpec extends FunSpec {
                 Number(4),
                 Var("y"))),
             Map("x" -> 1,
-              "y" -> 3)) === Number(21))
+              "y" -> 3)) == Number(21))
       }
 
       it("should calculate if (42 < 43) { 42 } else { 43 < 42 } to false") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             IfElse(
-              LessThan(
+              Less(
                 Number(43),
                 Number(42)),
               Number(42),
               Sum(
                 Number(42),
                 Number(42))),
-            Map()) === Number(84))
+            Map()) == Number(84))
       }
 
       it("should calculate (1 + 2 + 3) * (4 + 5)") {
         assert(
-          new Machine().run(
+          new Machine().reduce(
             Prod(
               Sum(
                 Sum(
@@ -273,7 +273,7 @@ class MachineSpec extends FunSpec {
               Sum(
                 Number(4),
                 Number(5))),
-            Map()) === Number(54))
+            Map()) == Number(54))
       }
     }
   }
@@ -282,45 +282,66 @@ class MachineSpec extends FunSpec {
     it("two empty machines is equal") {
       assert(
         new Machine()
-          .exec(DoNothing())
-          .env
-          ===
-          new Machine(Map())
-          .exec(DoNothing())
-          .env)
+          .run(DoNothing())
+          ==
+          Map())
     }
 
     it("should add value to variable") {
       assert(
-        new Machine(Map("x" -> 0)).exec(Assign("x", Number(1))).env
-          ===
-          new Machine(Map("x" -> 1)).exec(DoNothing()).env)
+        new Machine().run(Assign("x", Number(1)))
+          ==
+          Map("x" -> 1))
     }
 
-    it("should execute sequance of statements") {
+    it("should run sequance of statements") {
       assert(
-        new Machine(Map("x" -> 0)).exec(
-          SeqStat(
+        new Machine().run(
+          Seq(
             Assign("x", Number(1)),
             DoNothing(),
-            Assign("x", Number(2)))).env
-          ===
-          new Machine(Map("x" -> 2)).exec(DoNothing()).env)
+            Assign("x", Number(2))),
+          Map("x" -> 0))
+          ==
+          Map("x" -> 2))
     }
-    
-    it("should execute while statement") {
+
+    it("should run while statement") {
       assert(
-        new Machine(Map("x" -> 0, "y" -> 0)).exec(
+        new Machine().run(
           While(
-              LessThan(Var("x"), Number(10)),
-              SeqStat(
-                Assign("x", Sum(Var("x"), Number(1))),
-                Assign("y", Sum(Var("y"), Number(2)))
-              )
-         )).env
-          
-          ===
-          new Machine(Map("x" -> 10, "y" -> 20)).exec(DoNothing()).env)
+            Less(Var("x"), Number(10)),
+            Seq(
+              Assign("x", Sum(Var("x"), Number(1))),
+              Assign("y", Sum(Var("y"), Number(2))))),
+          Map("x" -> 0, "y" -> 0))
+          ==
+          Map("x" -> 10, "y" -> 20))
+    }
+
+    it("should stop execution if error in while loop") {
+      val finalEnv = new Machine().run(
+        While(
+          Less(Var("x"), Number(10)),
+          Seq(
+            Assign("x", Sum(Var("x"), Number(1))),
+            Assign("y", Var("z")))),
+        Map("x" -> 0))
+
+      assert(finalEnv.get("___error") != None)
+      assert(finalEnv.updated("___error", "") == Map("x" -> 1, "___error" -> ""))
+    }
+
+    it("should stop execution if error in statements execution") {
+      val finalEnv = new Machine().run(
+        Seq(
+          Assign("x", Number(1)),
+          Assign("x", Var("z")),
+          Assign("x", Number(2))),
+        Map("x" -> 0))
+
+      assert(finalEnv.get("___error") != None)
+      assert(finalEnv.updated("___error", "") == Map("x" -> 1, "___error" -> ""))
     }
   }
 }

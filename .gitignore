@@ -3,4 +3,5 @@
 target
 .worksheet
 .cache-main
+.cache-tests
 bin

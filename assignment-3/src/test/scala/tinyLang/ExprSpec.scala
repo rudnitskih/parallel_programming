@@ -53,7 +53,7 @@ class ExprSpec extends FlatSpec {
 
   it should "show 3 < 5" in {
     assert(
-      LessThan(Number(3), Number(5)).show === "3 < 5")
+      Less(Number(3), Number(5)).show === "3 < 5")
   }
 
   it should "show ifElse statement" in {
