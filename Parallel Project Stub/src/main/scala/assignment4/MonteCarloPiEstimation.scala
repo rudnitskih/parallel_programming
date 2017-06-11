@@ -30,9 +30,13 @@ object MonteCarloPiEstimation {
     val ((pi1, pi2), (p3, p4)) = parallel(parallel(countPointsInsideCircle(totalNumberOfPoints / 4), countPointsInsideCircle(totalNumberOfPoints / 4)),
       parallel(countPointsInsideCircle(totalNumberOfPoints / 4), countPointsInsideCircle(totalNumberOfPoints / 4)))
 
-    val piRes = 4 * (pi1 + pi2 + p3 + p4) / totalNumberOfPoints
-    println(piRes)
-    piRes
+    4 * (pi1 + pi2 + p3 + p4) / totalNumberOfPoints
+  }
+  
+  def piParTwo(totalNumberOfPoints: Int) = {
+    val (pi1, pi2) = parallel(countPointsInsideCircle(totalNumberOfPoints / 2), countPointsInsideCircle(totalNumberOfPoints / 2))
+
+    4 * (pi1 + pi2) / totalNumberOfPoints
   }
 
   def main(args: Array[String]): Unit = {
@@ -40,7 +44,7 @@ object MonteCarloPiEstimation {
 
     val standardConfig = config(
       Key.exec.minWarmupRuns -> 100,
-      Key.exec.maxWarmupRuns -> 200,
+      Key.exec.maxWarmupRuns -> 600,
       Key.exec.benchRuns -> 100,
       Key.verbose -> true) withWarmer (new Warmer.Default)
 
@@ -51,11 +55,18 @@ object MonteCarloPiEstimation {
     val partime = standardConfig measure {
       piPar(totalNumberOfPoints)
     }
+    
+    val partimeTwo = standardConfig measure {
+      piParTwo(totalNumberOfPoints)
+    }
 
-    println(s"sequntial time $seqtime ms")
+    println(s"sequntial time $seqtime")
 
-    println(s"parallel time $partime ms")
+    println(s"parallel four time $partime")
+     println(s"parallel two time $partimeTwo")
+    
     println(s"speedup ${seqtime.value / partime.value}")
+    println(s"speedup ${seqtime.value / partimeTwo.value}")
   }
 
 }
